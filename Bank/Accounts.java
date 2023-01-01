@@ -1,25 +1,30 @@
 package Bank;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileInputStream;
-public class Accounts {
+import java.io.*;
+public class Accounts{
   String name;
   int balance;
   String passcode;
 
-  public Accounts(String name, String passcode) throws IOException {
+  public Accounts(String name, String passcode)
+  {
     this.name = name;
     this.balance = 0;
     this.passcode = passcode;
-    FileOutputStream fileOut = new FileOutputStream("C:\\Users\\sigir\\Downloads\\java-alm\\Bank\\Accounts.txt",true);
-    ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+  }
+  public Accounts(String name, String passcode, int balance)
+  {
+    this.name = name;
+    this.balance = balance;
+    this.passcode = passcode;
+  }
+  public void commit() throws IOException {
+    FileWriter fileOut = new FileWriter("C:\\Users\\Balasai\\IdeaProjects\\java-alm\\Bank\\Accounts.txt",true);
+    BufferedWriter Out = new BufferedWriter(fileOut);
     try
     {
-      objectOut.writeObject(this);
-      objectOut.close();
+      Out.write(this.name+","+this.passcode+","+this.balance);
+      Out.newLine();
+      Out.close();
       fileOut.close();
     }
     catch (Exception e)
